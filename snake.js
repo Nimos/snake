@@ -168,22 +168,21 @@ Game.prototype.main = function () {
 }
 
 Game.prototype.newFood = function () {
-	// Pick a random spot for new food
-	index = Math.floor(Math.random()*this.tiles.length-1)
-	// counter to prevent endless loop
-	var c = 0;
-
-	// If the random spot is currently blocked by the snake, try the adjacent tile
-	while (this.tiles[index] != this.EMPTY && this.tiles[index++] != undefined) {
-		index %= this.tiles.length-1
-		if (c++ > this.tiles.length) {
-			// All tiles are filled with snake, player wins
-			this.gameOver(true)
-			break;
-		}
+	// Find all tiles that are not yet occupied by the snake
+	var emptyTiles = []
+	for (var x=0; x<this.tiles.length; x++) {
+		if (this.tiles[x] == undefined || this.tiles[x] == this.EMPTY)
+			emptyTiles.push(x);
 	}
+	// End the game if there are no more empty spots
+	if (emptyTiles.length == 0)
+		this.gameOver()
+
+	// Randomly pick one of the empty tiles
+	index = Math.floor(Math.random()*(emptyTiles.length))
+
 	// Place Food
-	this.tiles[index] = this.FOOD
+	this.tiles[emptyTiles[index]] = this.FOOD
 }
 
 Game.prototype.render = function () {
@@ -293,6 +292,7 @@ Game.prototype.handleKeypress = function (e) {
 
 
 Game.prototype.gameOver = function () {
+	// Freeze the game for a second to prevent players from accidentally restarting before realizing what happened
 	this.sleepFrames = 60;
 	this.state = this.GAMEOVER;
 }
