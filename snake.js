@@ -58,8 +58,8 @@ Game.prototype.newGame = function () {
 	this.sleepFrames = 0;
 
 	// Create Snake
-	startX = 10;
-	startY = 5;
+	startX = Math.floor(Math.random()*this.width);
+	startY = Math.floor(Math.random()*this.height);
 	this.posHead = [startX,startY];
 	this.posTail = [startX,startY];
 	this.tiles[this.coordToIndex(startX, startY)] = this.LEFT;
