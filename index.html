@@ -1,0 +1,29 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css"></link>
+	</head>
+	<body>
+		<div class="main">
+			<canvas style="display: none;" height="600" width="800" id="game"></canvas>
+			<form id="menu" class="menu" onsubmit="return false;">
+				<button href="#" id="start" class="play">New Game</button>
+				<hr>
+				<h4>Options:</h4>
+				Horizontal Tiles: <input type="text" value="16" id="width">
+				Vertical Tiles: <input type="text" value="12" id="height">
+				Starting Length: <input type="text" value="3" id="initiallength">
+				Move Rate (less=faster) <input type="text" value="10" id="moveRate"><br>
+				<input type="checkbox" checked id="wraparound">Enable "Wrap Around"</input>
+			</form>
+		</div>
+		<script src="snake.js"></script>
+		<script>
+			start.onclick= function () {
+				g = new Game(game, width.value, height.value, initiallength.value, wraparound.checked, moveRate.value)	
+				game.style.display = 'inline-block';
+				menu.style.display = 'none';
+			}
+		</script>
+	</body>
+</html>
